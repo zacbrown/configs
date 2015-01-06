@@ -5,6 +5,14 @@
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
   )
 
+;; install use-package if it isn't installed.
+(if (not (package-installed-p 'use-package))
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+
+(require 'use-package)
+
 ;; show line numbers
 (require 'linum)
 (global-linum-mode 1)
@@ -18,13 +26,23 @@
 ;; no tabs
 (setq-default indent-tabs-mode nil)
 
+;; install csharpmode
+(use-package csharp-mode
+  :ensure csharp-mode)
+
 ;; sublimity
+(use-package sublimity
+  :ensure sublimity)
+
 (require 'sublimity)
 (require 'sublimity-scroll)
 
 (require 'sublimity-map)
 
 ;; speedbar
+(use-package sr-speedbar
+  :ensure sr-speedbar)
+
 (require 'sr-speedbar)
 (global-set-key (kbd "M-s") 'sr-speedbar-toggle)
 
