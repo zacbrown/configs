@@ -1,9 +1,10 @@
-;; Add melpa
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  )
+;; Add melpa and marmalade as sources for package.el
+
+(require 'package)
+(mapc (lambda(p) (push p package-archives))
+      '(("melpa" . "http://melpa.milkbox.net/packages/")))
+(package-refresh-contents)
+(package-initialize)
 
 ;; install use-package if it isn't installed.
 (if (not (package-installed-p 'use-package))
@@ -18,8 +19,11 @@
 (global-linum-mode 1)
 
 ;; load monokai theme
-(load-theme 'monokai t)
-
+(use-package monokai-theme
+  :ensure monokai-theme
+  :config
+  (progn (load-theme 'monokai t)))
+ 
 ;; 4 space tabbing in c-mode
 (setq-default c-basic-offset 4)
 
@@ -28,7 +32,7 @@
 
 ;; install csharpmode
 (use-package csharp-mode
-  :ensure csharp-mode)
+  :ensure t)
 
 ;; sublimity
 (use-package sublimity
