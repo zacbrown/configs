@@ -30,6 +30,14 @@
 ;; no tabs
 (setq-default indent-tabs-mode nil)
 
+;;; Always do syntax highlighting
+(global-font-lock-mode 1)
+
+;;; Also highlight parens
+(setq show-paren-delay 0
+      show-paren-style 'parenthesis)
+(show-paren-mode 1)
+
 ;; install csharpmode
 (use-package csharp-mode
   :ensure t)
