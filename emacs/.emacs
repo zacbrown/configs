@@ -40,6 +40,9 @@
       )
   )
 
+;; truncate, we ain't care
+(set-default 'truncate-lines t)
+
 ;; default window split is vertical
 (setq split-width-threshold nil)
 
@@ -63,6 +66,12 @@
 ;; install csharpmode
 (use-package csharp-mode
   :ensure t)
+
+(use-package dylan-mode
+  :ensure t)
+(setq inferior-dylan-program "~/bin/opendylan-2014.1/bin/dswank")
+(require 'dime)
+(dime-setup '(dime-dylan dime-repl))
 
 ;; sublimity
 (use-package sublimity
