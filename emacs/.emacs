@@ -18,6 +18,23 @@
 (require 'linum)
 (global-linum-mode 1)
 
+;; Backup settings
+(defvar --backup-directory (concat user-emacs-directory "backups"))
+(if (not (file-exists-p --backup-directory))
+        (make-directory --backup-directory t))
+(setq backup-directory-alist `(("." . ,--backup-directory)))
+(setq make-backup-files t               ; backup of a file the first time it is saved.
+      backup-by-copying t               ; don't clobber symlinks
+      version-control t                 ; version numbers for backup files
+      delete-old-versions t             ; delete excess backup files silently
+      delete-by-moving-to-trash t
+      kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
+      kept-new-versions 9               ; newest versions to keep when a new numbered backup is made (default: 2)
+      auto-save-default t               ; auto-save every buffer that visits a file
+      auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
+      auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
+      )
+
 ;; load monokai theme
 (use-package monokai-theme
   :ensure monokai-theme
@@ -32,7 +49,7 @@
       quack-newline-behavior 'newline)
 
 ;; set fn key as the same as control
-(if (string-equal system-type "darwin")
+(if (string-equal system-type 'darwin)
     (progn
       (setenv "PATH" (concat "/usr/local/bin" ";" (getenv "PATH")) t)
       (add-to-list 'exec-path "/usr/local/bin/")
@@ -40,7 +57,10 @@
       )
   )
 
-;; truncate, we ain't care
+;; trailing whitespace
+(setq-default show-trailing-whitespace t)
+
+;; truncate, we ain't care.
 (set-default 'truncate-lines t)
 
 ;; default window split is vertical
@@ -63,13 +83,38 @@
 ;;; This is the binary name of my scheme implementation
 (setq scheme-program-name "csi")
 
+(use-package yaml-mode
+  :ensure t)
+
+(use-package polymode
+  :ensure t)
+
+;; jekyll mode and markdown-mode for editing github blogs
+(use-package markdown-mode
+  :ensure t)
+
+(add-hook 'markdown-mode-hook
+          '(lambda ()
+             (progn
+               (adaptive-wrap-prefix-mode 1)
+               (visual-line-mode 1))))
+
+(use-package jekyll-modes
+  :ensure t)
+(add-to-list 'auto-mode-alist '("\\.md$" . jekyll-markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.html" . jekyll-html-mode))
+
 ;; install csharpmode
 (use-package csharp-mode
   :ensure t)
 
 (use-package dylan-mode
   :ensure t)
-(setq inferior-dylan-program "~/bin/opendylan-2014.1/bin/dswank")
+
+(if (eq system-type 'windows-nt)
+    (setq inferior-dylan-program "\"C:/Program Files (x86)/Open Dylan/bin/dswank.exe\"")
+  (setq inferior-dylan-program "~/bin/opendylan-2014.1/bin/dswank"))
+
 (require 'dime)
 (dime-setup '(dime-dylan dime-repl))
 
@@ -103,3 +148,16 @@
 
 (global-set-key [next] 'sfp-page-down)
 (global-set-key [prior] 'sfp-page-up)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
