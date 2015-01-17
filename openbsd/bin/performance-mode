@@ -1,0 +1,5 @@
+#!/bin/ksh
+
+sudo sysctl hw.setperf=100
+sudo sysctl hw.cpuspeed
+echo 'Performance Mode now on'

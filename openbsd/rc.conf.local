@@ -1,0 +1,7 @@
+xdm_flags=NO
+multicast_host=YES
+ntpd_flags="-s"
+hotplugd_flags=""
+pkg_scripts="dbus_daemon avahi_daemon toad"
+pf=YES
+pf_rules=/etc/pf.conf
