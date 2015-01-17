@@ -1,5 +1,7 @@
 ;; Add melpa and marmalade as sources for package.el
 
+(server-start)
+
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
       '(("melpa" . "http://melpa.milkbox.net/packages/")))
@@ -148,6 +150,9 @@
 
 (global-set-key [next] 'sfp-page-down)
 (global-set-key [prior] 'sfp-page-up)
+
+(global-set-key [home] 'beginning-of-line)
+(global-set-key [end] 'end-of-line)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
