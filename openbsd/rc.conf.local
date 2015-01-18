@@ -5,3 +5,4 @@ hotplugd_flags=""
 pkg_scripts="dbus_daemon avahi_daemon toad"
 pf=YES
 pf_rules=/etc/pf.conf
+apmd_flags="-C"
