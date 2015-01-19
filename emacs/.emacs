@@ -1,6 +1,7 @@
 ;; Add melpa and marmalade as sources for package.el
-
-(server-start)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
@@ -93,6 +94,9 @@
 
 ;; jekyll mode and markdown-mode for editing github blogs
 (use-package markdown-mode
+  :ensure t)
+
+(use-package adaptive-wrap
   :ensure t)
 
 (add-hook 'markdown-mode-hook
