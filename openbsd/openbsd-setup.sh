@@ -9,3 +9,6 @@ pkg_add -i llvm
 pkg_add -i git
 pkg_add -i git-x11
 pkg_add -i evince
+pkg_add -i ruby21
+pkg_add -i ruby21-therubyracer
+pkg_add -i colorls
