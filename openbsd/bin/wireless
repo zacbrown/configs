@@ -24,7 +24,7 @@
 use strict;
 use warnings;
 
-my $config_file = "wireless.cfg";
+my $config_file = $ENV{"HOME"} . "/bin/wireless.cfg";
 
 die("You need root privileges to run $0\n") unless $> eq 0;
 die("Could not open $config_file\n") unless -e -r $config_file;
