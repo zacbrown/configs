@@ -86,6 +86,9 @@
 ;;; This is the binary name of my scheme implementation
 (setq scheme-program-name "csi")
 
+(use-package fsharp-mode
+  :ensure t)
+
 (use-package yaml-mode
   :ensure t)
 
