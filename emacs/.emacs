@@ -89,6 +89,9 @@
 (use-package fsharp-mode
   :ensure t)
 
+(use-package powershell
+  :ensure t)
+
 (use-package yaml-mode
   :ensure t)
 
