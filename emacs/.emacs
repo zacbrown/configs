@@ -89,6 +89,28 @@
 (use-package fsharp-mode
   :ensure t)
 
+(require 'fsharp-mode)
+
+(use-package exec-path-from-shell
+  :ensure t)
+
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
+
+(use-package go-mode
+  :ensure t)
+
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+(use-package go-autocomplete
+  :ensure t)
+
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)
+
 (use-package yaml-mode
   :ensure t)
 
