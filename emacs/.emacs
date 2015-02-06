@@ -113,6 +113,11 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(use-package go-eldoc
+  :ensure t)
+
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+
 (use-package powershell
   :ensure t)
 
