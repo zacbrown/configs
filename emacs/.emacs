@@ -111,6 +111,11 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(use-package powershell
+  :ensure t)
+
+(setq powershell-indent 2)
+
 (use-package yaml-mode
   :ensure t)
 
