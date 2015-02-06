@@ -21,6 +21,8 @@
 (require 'linum)
 (global-linum-mode 1)
 
+(setq default-tab-width 2)
+
 ;; Backup settings
 (defvar --backup-directory (concat user-emacs-directory "backups"))
 (if (not (file-exists-p --backup-directory))
