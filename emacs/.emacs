@@ -3,6 +3,10 @@
 (unless (server-running-p)
   (server-start))
 
+;; Set a nice default font
+(add-to-list 'default-frame-alist '(font .  "Lucida Grande Mono-10" ))
+(set-face-attribute 'default t :font "Lucida Grande Mono-10")
+
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
       '(("melpa" . "http://melpa.milkbox.net/packages/")))
