@@ -14,8 +14,14 @@
 (prefer-coding-system 'utf-8)
 
 ;; Set a nice default font
-(add-to-list 'default-frame-alist '(font .  "Lucida Grande Mono-10" ))
-(set-face-attribute 'default t :font "Lucida Grande Mono-10")
+(if (eq system-type 'windows-nt)
+    (progn
+      (add-to-list 'default-frame-alist '(font .  "Lucida Grande Mono-10" ))
+      (set-face-attribute 'default t :font "Lucida Grande Mono-10"))
+  (progn
+    (add-to-list 'default-frame-alist '(font .  "Lucida Grande Mono-12" ))
+    (set-face-attribute 'default t :font "Lucida Grande Mono-12"))
+  )
 
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
