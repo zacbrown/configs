@@ -64,7 +64,30 @@
 (use-package monokai-theme
   :ensure monokai-theme
   :config
-  (progn (load-theme 'monokai t)))
+  (progn
+    (load-theme 'monokai t)
+    ))
+
+(use-package ample-theme
+  :ensure ample-theme
+  :config
+  (progn
+    ;(load-theme 'ample t)
+    ))
+
+(use-package cyberpunk-theme
+  :ensure cyberpunk-theme
+  :config
+  (progn
+    ;(load-theme 'cyberpunk t)
+    ))
+
+(use-package flatland-theme
+  :ensure flatland-theme
+  :config
+  (progn
+    ;(load-theme 'flatland t)
+    ))
 
 (use-package centered-window-mode
   :ensure t)
