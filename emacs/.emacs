@@ -137,11 +137,25 @@
 (use-package fsharp-mode
   :ensure t)
 
-(require 'fsharp-mode)
+(use-package haskell-mode
+  :ensure t)
+
+(require 'haskell)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(use-package ghc
+  :ensure t)
+
+(use-package ac-haskell-process
+  :ensure t)
+
+(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
+(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'haskell-interactive-mode))
 
 (use-package exec-path-from-shell
   :ensure t)
-
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
