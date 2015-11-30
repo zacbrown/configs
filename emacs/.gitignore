@@ -2,4 +2,4 @@
 
 !.gitignore
 !.emacs
-!.emacs.d/*
+!github-markdown.css

@@ -127,6 +127,25 @@
 (use-package fsharp-mode
   :ensure t)
 
+
+(use-package adaptive-wrap
+  :ensure t)
+
+(use-package pandoc-mode
+  :ensure t)
+
+(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
+
+(use-package markdown-mode
+  :ensure t)
+
+(add-hook 'markdown-mode-hook 'pandoc-mode)
+(add-hook 'markdown-mode-hook
+          '(lambda ()
+             (progn
+               (adaptive-wrap-prefix-mode 1)
+               (visual-line-mode 1))))
+
 (use-package exec-path-from-shell
   :ensure t)
 
@@ -167,9 +186,6 @@
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-
-(use-package adaptive-wrap
-  :ensure t)
 
 ;; install csharpmode
 (use-package csharp-mode
@@ -213,7 +229,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(markdown-command "pandoc -c d:/code/configs/emacs/github-markdown.css -s -t html5"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
