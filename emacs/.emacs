@@ -98,7 +98,8 @@
 ;; Add melpa and marmalade as sources for package.el
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
-      '(("melpa" . "https://melpa.milkbox.net/packages/")))
+      '(("melpa" . "https://melpa.milkbox.net/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
 (package-refresh-contents)
 (package-initialize)
 
@@ -125,7 +126,10 @@
 (load-theme 'snow t t)
 (enable-theme 'snow)
 
-(use-package centered-window-mode
+;;(use-package centered-window-mode
+;;  :ensure t)
+
+(use-package org
   :ensure t)
 
 (use-package fsharp-mode
