@@ -25,7 +25,7 @@
 
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
-      '(("melpa" . "http://melpa.milkbox.net/packages/")))
+      '(("melpa" . "https://melpa.milkbox.net/packages/")))
 (package-refresh-contents)
 (package-initialize)
 
@@ -60,45 +60,6 @@
       auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
       )
 
-;; load monokai theme
-(use-package monokai-theme
-  :ensure monokai-theme
-  :config
-  (progn
-    (load-theme 'monokai t)
-    ))
-
-(use-package ample-theme
-  :ensure ample-theme
-  :config
-  (progn
-    ;(load-theme 'ample t)
-    ))
-
-(use-package cyberpunk-theme
-  :ensure cyberpunk-theme
-  :config
-  (progn
-    ;(load-theme 'cyberpunk t)
-    ))
-
-(use-package flatland-theme
-  :ensure flatland-theme
-  :config
-  (progn
-    ;(load-theme 'flatland t)
-    ))
-
-(use-package centered-window-mode
-  :ensure t)
-
-(use-package quack
-  :ensure t)
-(require 'quack)
-(setq quack-fontify-style 'emacs
-      quack-default-program "csi"
-      quack-newline-behavior 'newline)
-
 ;; set fn key as the same as control
 (if (string-equal system-type 'darwin)
     (progn
@@ -131,32 +92,24 @@
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
-;;; This is the binary name of my scheme implementation
-(setq scheme-program-name "csi")
+(use-package color-theme-modern
+  :ensure color-theme-modern
+  :config)
+
+;;(load-theme 'ramangalahy t t)
+;;(enable-theme 'ramangalahy)
+;;(load-theme 'infodoc t t)
+;;(enable-theme 'infodoc)
+;;(load-theme 'greiner t t)
+;;(enable-theme 'greiner)
+(load-theme 'snow t t)
+(enable-theme 'snow)
+
+(use-package centered-window-mode
+  :ensure t)
 
 (use-package fsharp-mode
   :ensure t)
-
-(use-package haskell-mode
-  :ensure t)
-
-(require 'haskell)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
-(use-package ghc
-  :ensure t)
-
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-
-(use-package ac-haskell-process
-  :ensure t)
-
-(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
-(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'haskell-interactive-mode))
 
 (use-package exec-path-from-shell
   :ensure t)
@@ -187,43 +140,15 @@
 
 (setq powershell-indent 2)
 
-(use-package yaml-mode
-  :ensure t)
-
 (use-package polymode
-  :ensure t)
-
-;; jekyll mode and markdown-mode for editing github blogs
-(use-package markdown-mode
   :ensure t)
 
 (use-package adaptive-wrap
   :ensure t)
 
-(add-hook 'markdown-mode-hook
-          '(lambda ()
-             (progn
-               (adaptive-wrap-prefix-mode 1)
-               (visual-line-mode 1))))
-
-(use-package jekyll-modes
-  :ensure t)
-(add-to-list 'auto-mode-alist '("\\.md$" . jekyll-markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.html" . jekyll-html-mode))
-
 ;; install csharpmode
 (use-package csharp-mode
   :ensure t)
-
-(use-package dylan-mode
-  :ensure t)
-
-(if (eq system-type 'windows-nt)
-    (setq inferior-dylan-program "\"C:/Program Files (x86)/Open Dylan/bin/dswank.exe\"")
-  (setq inferior-dylan-program "~/bin/opendylan-2014.1/bin/dswank"))
-
-(require 'dime)
-(dime-setup '(dime-dylan dime-repl))
 
 ;; sublimity
 (use-package sublimity
@@ -258,17 +183,3 @@
 
 (global-set-key [home] 'beginning-of-line)
 (global-set-key [end] 'end-of-line)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t)
- '(markdown-command "blackfriday-tool"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fringe ((t (:background "#272822")))))
