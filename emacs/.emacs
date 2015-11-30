@@ -8,7 +8,11 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode 1))
 
 ;; show a clock for full screen
-(display-time-mode 1)
+(display-time-mode t)
+(setq display-time-day-and-date t)
+(setq display-time-24hr-format t)
+
+(setq visible-bell t)
 
 ;; set up ido mode
 (require `ido)
