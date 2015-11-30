@@ -60,6 +60,66 @@
       auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
       )
 
+;; (use-package sublime-themes
+;;   :ensure sublime-themes
+;;   :config
+;;   (progn
+;;     (load-theme 'mccarthy t)
+;;     ))
+
+;; (use-package occidental-theme
+;;   :ensure occidental-theme
+;;   :config
+;;   (progn
+;;     (load-theme 'occidental t)
+;;     ))
+
+;; (use-package alect-themes
+;;   :ensure alect-themes
+;;   :config
+;;   (progn
+;;     (load-theme 'alect-light-alt t)
+;;     ))
+
+;; (use-package soft-morning-theme
+;;   :ensure soft-morning-theme
+;;   :config
+;;   (progn
+;;     (load-theme 'soft-morning t)
+;;     ))
+
+;; ;; load monokai theme
+;; (use-package monokai-theme
+;;   :ensure monokai-theme
+;;   :config
+;;   (progn
+;;     ;(load-theme 'monokai t)
+;;     ))
+
+;; (use-package ample-theme
+;;   :ensure ample-theme
+;;   :config
+;;   (progn
+;;     ;(load-theme 'ample t)
+;;     ))
+
+;; (use-package cyberpunk-theme
+;;   :ensure cyberpunk-theme
+;;   :config
+;;   (progn
+;;     ;(load-theme 'cyberpunk t)
+;;     ))
+
+;; (use-package flatland-theme
+;;   :ensure flatland-theme
+;;   :config
+;;   (progn
+;;     ;(load-theme 'flatland t)
+;;     ))
+
+(use-package centered-window-mode
+  :ensure t)
+
 ;; set fn key as the same as control
 (if (string-equal system-type 'darwin)
     (progn
