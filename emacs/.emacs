@@ -29,8 +29,8 @@
 ;; Set a nice default font
 (if (eq system-type 'windows-nt)
     (progn
-      (add-to-list 'default-frame-alist '(font .  "Akkurat Mono-10" ))
-      (set-face-attribute 'default t :font "Akkurat Mono-10"))
+      (add-to-list 'default-frame-alist '(font .  "Akkurat-Mono-10" ))
+      (set-face-attribute 'default t :font "Akkurat-Mono-10"))
   (progn
     (add-to-list 'default-frame-alist '(font .  "Akkurat Mono-12" ))
     (set-face-attribute 'default t :font "Akkurat Mono-12"))
