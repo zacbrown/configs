@@ -1,7 +1,20 @@
-;; Add melpa and marmalade as sources for package.el
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+;; disable the tool bars and such
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode 1))
+
+;; show a clock for full screen
+(display-time-mode 1)
+
+;; set up ido mode
+(require `ido)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
 (setq utf-translate-cjk-mode nil) ; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
 (set-language-environment 'utf-8)
@@ -16,13 +29,14 @@
 ;; Set a nice default font
 (if (eq system-type 'windows-nt)
     (progn
-      (add-to-list 'default-frame-alist '(font .  "Lucida Grande Mono-10" ))
-      (set-face-attribute 'default t :font "Lucida Grande Mono-10"))
+      (add-to-list 'default-frame-alist '(font .  "Akkurat Mono-10" ))
+      (set-face-attribute 'default t :font "Akkurat Mono-10"))
   (progn
-    (add-to-list 'default-frame-alist '(font .  "Lucida Grande Mono-12" ))
-    (set-face-attribute 'default t :font "Lucida Grande Mono-12"))
+    (add-to-list 'default-frame-alist '(font .  "Akkurat Mono-12" ))
+    (set-face-attribute 'default t :font "Akkurat Mono-12"))
   )
 
+;; Add melpa and marmalade as sources for package.el
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
       '(("melpa" . "https://melpa.milkbox.net/packages/")))
@@ -59,63 +73,6 @@
       auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
       auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
       )
-
-;; (use-package sublime-themes
-;;   :ensure sublime-themes
-;;   :config
-;;   (progn
-;;     (load-theme 'mccarthy t)
-;;     ))
-
-;; (use-package occidental-theme
-;;   :ensure occidental-theme
-;;   :config
-;;   (progn
-;;     (load-theme 'occidental t)
-;;     ))
-
-;; (use-package alect-themes
-;;   :ensure alect-themes
-;;   :config
-;;   (progn
-;;     (load-theme 'alect-light-alt t)
-;;     ))
-
-;; (use-package soft-morning-theme
-;;   :ensure soft-morning-theme
-;;   :config
-;;   (progn
-;;     (load-theme 'soft-morning t)
-;;     ))
-
-;; ;; load monokai theme
-;; (use-package monokai-theme
-;;   :ensure monokai-theme
-;;   :config
-;;   (progn
-;;     ;(load-theme 'monokai t)
-;;     ))
-
-;; (use-package ample-theme
-;;   :ensure ample-theme
-;;   :config
-;;   (progn
-;;     ;(load-theme 'ample t)
-;;     ))
-
-;; (use-package cyberpunk-theme
-;;   :ensure cyberpunk-theme
-;;   :config
-;;   (progn
-;;     ;(load-theme 'cyberpunk t)
-;;     ))
-
-;; (use-package flatland-theme
-;;   :ensure flatland-theme
-;;   :config
-;;   (progn
-;;     ;(load-theme 'flatland t)
-;;     ))
 
 (use-package centered-window-mode
   :ensure t)
@@ -202,6 +159,15 @@
 
 (use-package polymode
   :ensure t)
+
+(use-package ace-jump-mode
+  :ensure t)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+(eval-after-load "ace-jump-mode"
+  '(ace-jump-mode-enable-mark-sync))
+(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
 
 (use-package adaptive-wrap
   :ensure t)
