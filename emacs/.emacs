@@ -8,10 +8,11 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode 1))
 
 ;; show a clock for full screen
-(display-time-mode t)
 (setq display-time-day-and-date t)
 (setq display-time-24hr-format t)
+(display-time-mode t)
 
+;; disable the audible bell
 (setq visible-bell t)
 
 ;; set up ido mode
@@ -98,7 +99,7 @@
 ;; Add melpa and marmalade as sources for package.el
 (require 'package)
 (mapc (lambda(p) (push p package-archives))
-      '(("melpa" . "https://melpa.milkbox.net/packages/")
+      '(("melpa" . "https://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
 (package-refresh-contents)
 (package-initialize)
@@ -131,6 +132,11 @@
 
 (use-package org
   :ensure t)
+
+(if (eq system-type 'windows-nt)
+    (progn (find-file (concat (getenv "HOMEPATH") "/Dropbox/notes/work.org")))
+  (progn (find-file "~/Dropbox/notes/work.org")))
+
 
 (use-package fsharp-mode
   :ensure t)
@@ -206,13 +212,6 @@
 (require 'sublimity)
 (require 'sublimity-scroll)
 
-;; speedbar
-(use-package sr-speedbar
-  :ensure sr-speedbar)
-
-(require 'sr-speedbar)
-;;(global-set-key (kbd "M-s") 'sr-speedbar-toggle)
-
 ;; rebind how page-up and page-down work
 
 (defun sfp-page-down ()
@@ -238,7 +237,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
- '(markdown-command "pandoc -c d:/code/configs/emacs/github-markdown.css -s -t html5"))
+ '(markdown-command "pandoc -c ~/.github-markdown.css -s -t html5"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
