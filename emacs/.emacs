@@ -134,7 +134,7 @@
   :ensure t)
 
 (if (eq system-type 'windows-nt)
-    (progn (find-file (concat (getenv "HOMEPATH") "/Dropbox/notes/work.org")))
+    (progn (find-file (concat (getenv "HOMEDRIVE") "/" (getenv "HOMEPATH") "/Dropbox/notes/work.org")))
   (progn (find-file "~/Dropbox/notes/work.org")))
 
 
