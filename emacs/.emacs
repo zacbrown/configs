@@ -13,7 +13,9 @@
 (display-time-mode t)
 
 ;; disable the audible bell
-(setq visible-bell t)
+(if (eq system-type 'windows-nt)
+    (setq visible-bell t)
+  ())
 
 ;; set up ido mode
 (require `ido)
