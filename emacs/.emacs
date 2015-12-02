@@ -220,12 +220,9 @@
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-
-;; install csharpmode
 (use-package csharp-mode
   :ensure t)
 
-;; sublimity
 (use-package sublimity
   :ensure sublimity)
 
@@ -233,7 +230,6 @@
 (require 'sublimity-scroll)
 
 ;; rebind how page-up and page-down work
-
 (defun sfp-page-down ()
   (interactive)
   (next-line
