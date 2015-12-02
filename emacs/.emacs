@@ -17,6 +17,9 @@
     (setq visible-bell t)
   ())
 
+;; auto-magically refresh all buffers
+(global-auto-revert-mode t)
+
 ;; set up ido mode
 (require `ido)
 (setq ido-enable-flex-matching t)
