@@ -129,6 +129,8 @@
 ;;(enable-theme 'infodoc)
 ;;(load-theme 'greiner t t)
 ;;(enable-theme 'greiner)
+;;(load-theme mac-classic t t)
+;;(enable-theme 'mac-classic)
 (load-theme 'snow t t)
 (enable-theme 'snow)
 
