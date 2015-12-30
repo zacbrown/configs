@@ -1,0 +1,3 @@
+. /etc/profile
+. ~/.profile
+. ~/.bashrc

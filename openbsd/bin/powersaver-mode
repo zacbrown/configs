@@ -1,5 +1,5 @@
 #!/bin/ksh
 
-sudo sysctl hw.setperf=0
-sudo sysctl hw.cpuspeed
+doas apm -L
+doas sysctl hw.cpuspeed
 echo 'Power Saver now on'
