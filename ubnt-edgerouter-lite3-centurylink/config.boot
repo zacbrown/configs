@@ -76,11 +76,21 @@ interfaces {
     ethernet eth0 {
         address 192.168.1.1/24
         description Local
+        dhcp-options {
+            default-route update
+            default-route-distance 210
+            name-server update
+        }
         duplex auto
         speed auto
     }
     ethernet eth1 {
         description "Centurylink WAN"
+        dhcp-options {
+            default-route update
+            default-route-distance 210
+            name-server update
+        }
         duplex auto
         speed auto
         vif 201 {
@@ -96,7 +106,7 @@ interfaces {
                     }
                 }
                 mtu 1492
-                name-server auto
+                name-server none
                 password <your PPPoE password>
                 user-id <your PPPoE user>@qwest.net
             }
@@ -118,13 +128,22 @@ service {
             authoritative disable
             subnet 192.168.1.0/24 {
                 default-router 192.168.1.1
-                dns-server 208.67.222.222
-                dns-server 208.67.220.220
+                dns-server 192.168.1.1
                 lease 86400
                 start 192.168.1.2 {
                     stop 192.168.1.255
                 }
             }
+        }
+    }
+    dns {
+        forwarding {
+            cache-size 1000
+            listen-on eth0
+            listen-on eth1
+            name-server 208.67.222.222
+            name-server 208.67.220.220
+            system
         }
     }
     gui {
@@ -166,6 +185,7 @@ system {
             level admin
         }
     }
+    name-server 127.0.0.1
     ntp {
         server 0.ubnt.pool.ntp.org {
         }
@@ -188,9 +208,13 @@ system {
         }
     }
     time-zone America/Los_Angeles
+    traffic-analysis {
+        dpi enable
+        export enable
+    }
 }
 
 
 /* Warning: Do not remove the following line. */
-/* === vyatta-config-version: "config-management@1:conntrack@1:cron@1:dhcp-relay@1:dhcp-server@4:firewall@5:ipsec@4:nat@3:qos@1:quagga@2:system@4:ubnt-pptp@1:ubnt-util@1:vrrp@1:webgui@1:webproxy@1:zone-policy@1" === */
-/* Release version: v1.7.0.4783374.150622.1534 */
+/* === vyatta-config-version: "config-management@1:conntrack@1:cron@1:dhcp-relay@1:dhcp-server@4:firewall@5:ipsec@5:nat@3:qos@1:quagga@2:system@4:ubnt-pptp@1:ubnt-util@1:vrrp@1:webgui@1:webproxy@1:zone-policy@1" === */
+/* Release version: v1.8.0.4853089.160219.1607 */
