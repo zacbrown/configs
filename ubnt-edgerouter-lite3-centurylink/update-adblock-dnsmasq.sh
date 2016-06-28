@@ -17,6 +17,9 @@ curl -s "http://pgl.yoyo.org/adservers/serverlist.php?hostformat=dnsmasq&showint
 
 if [ -f "$temp_ad_file" ]
 then
+  # a pseudo whitelist
+  sed -i -e '/spclient\.wg\.spotify\.com/d' $temp_ad_file
+
   # sort ad blocking list in the temp file and remove duplicate lines from it
   sort -o $temp_ad_file -t '/' -uk2 $temp_ad_file
 
