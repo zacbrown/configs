@@ -6,11 +6,8 @@ export PATH=/usr/local/bin:$PATH:$HOME/bin
 
 export PATH=$PATH:/Applications/Epsilon.app/Contents/bin
 
-export PATH=$PATH:$HOME/Library/Haskell/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/Code/bin
-
-#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
@@ -23,8 +20,12 @@ alias te=terminal-epsilon
 alias e=epsilon
 alias ea='epsilon -add'
 
+alias hibernate='sudo pmset -a hibernatemode 25'
 alias sleepsafe='sudo pmset -a destroyfvkeyonstandby 1 hibernatemode 25'
 alias sleepfast='sudo pmset -a hibernatemode 0'
 alias sleepdefault='sudo pmset -a hibernatemode 3'
+
+#alias ghci='stack ghci'
+#alias ghc='stack ghc'
 
 source $HOME/.profile
