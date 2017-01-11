@@ -42,6 +42,8 @@
 ;; set fn key as the same as control
 (if (string-equal system-type 'darwin)
     (progn
+      (setenv "PATH"
+              (concat "/usr/local/bin:/Users/zbrown/.local/bin:" (getenv "PATH")) t)
       (add-to-list 'exec-path "/usr/local/bin/")
       (add-to-list 'exec-path "/Users/zbrown/.local/bin/")
       (setq ns-function-modifier 'control)
@@ -217,3 +219,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
