@@ -25,7 +25,6 @@ alias sleepsafe='sudo pmset -a destroyfvkeyonstandby 1 hibernatemode 25'
 alias sleepfast='sudo pmset -a hibernatemode 0'
 alias sleepdefault='sudo pmset -a hibernatemode 3'
 
-#alias ghci='stack ghci'
-#alias ghc='stack ghc'
+alias batt='pmset -g batt'
 
 source $HOME/.profile

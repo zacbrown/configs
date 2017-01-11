@@ -152,6 +152,10 @@
   (push 'haskell-interactive-mode popwin:special-display-config)
   (push 'intero-rep-mode popwin:special-display-config))
 
+(use-package magit
+  :ensure t)
+(global-set-key (kbd "C-x g") 'magit-status)
+
 ;; (use-package scala-mode
 ;;   :ensure t)
 
@@ -199,3 +203,17 @@
 
 (global-set-key [home] 'beginning-of-line)
 (global-set-key [end] 'end-of-line)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (magit use-package intero hindent flycheck-haskell exec-path-from-shell ensime company-ghci color-theme-modern adaptive-wrap))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
