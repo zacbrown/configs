@@ -13,9 +13,8 @@
 (display-time-mode t)
 
 ;; disable the audible bell
-(if (eq system-type 'windows-nt)
-    (setq visible-bell t)
-  ())
+;; (setq visible-bell 1)
+(setq ring-bell-function 'ignore)
 
 ;; auto-magically refresh all buffers
 (global-auto-revert-mode t)
@@ -32,19 +31,7 @@
 (setq locale-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
-;(unless (eq system-type 'windows-nt)
-;    (set-selection-coding-system 'utf-8))
 (prefer-coding-system 'utf-8)
-
-;; Set a nice default font
-(if (eq system-type 'windows-nt)
-    (progn
-      (add-to-list 'default-frame-alist '(font .  "Akkurat-Mono-10" ))
-      (set-face-attribute 'default t :font "Akkurat-Mono-10"))
-  (progn
-    (add-to-list 'default-frame-alist '(font .  "Akkurat Mono-12" ))
-    (set-face-attribute 'default t :font "Akkurat Mono-12"))
-  )
 
 ;; show line numbers
 (require 'linum)
@@ -55,8 +42,8 @@
 ;; set fn key as the same as control
 (if (string-equal system-type 'darwin)
     (progn
-      (setenv "PATH" (concat "/usr/local/bin" ";" (getenv "PATH")) t)
       (add-to-list 'exec-path "/usr/local/bin/")
+      (add-to-list 'exec-path "/Users/zbrown/.local/bin/")
       (setq ns-function-modifier 'control)
       )
   )
@@ -103,21 +90,24 @@
 
 ;; Add melpa and marmalade as sources for package.el
 (require 'package)
-(mapc (lambda(p) (push p package-archives))
-      '(("melpa" . "https://melpa.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")))
-(package-refresh-contents)
+(setq package-enable-at-startup nil)
+(setq package-archives
+      '(("elpa"         . "http://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa"        . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("melpa-stable" . 10)
+        ("melpa"        . 5)
+        ("elpa"         . 0)))
 (package-initialize)
 
-;; install use-package if it isn't installed.
-(if (not (package-installed-p 'use-package))
-    (progn
-      (package-refresh-contents)
-      (package-install 'use-package)))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (require 'use-package)
-(use-package centered-window-mode
-  :ensure t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package color-theme-modern
   :ensure color-theme-modern
@@ -134,102 +124,62 @@
 (load-theme 'snow t t)
 (enable-theme 'snow)
 
-;;(use-package centered-window-mode
-;;  :ensure t)
-
-(use-package company
+(use-package exec-path-from-shell
   :ensure t)
-
-(use-package org
-  :ensure t)
-
-(if (eq system-type 'windows-nt)
-    (progn (find-file (concat (getenv "HOMEDRIVE") "/" (getenv "HOMEPATH") "/Dropbox/notes/work.org")))
-  (progn (find-file "~/Dropbox/notes/work.org")))
-
-
-(use-package fsharp-mode
-  :ensure t)
-
-(use-package rust-mode
-  :ensure t)
-
-(use-package company-racer
-  :ensure t)
-
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'rust-mode-hook #'company-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
-
-(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-(setq company-tooltip-align-annotations t)
 
 (use-package adaptive-wrap
   :ensure t)
 
-(use-package pandoc-mode
-  :ensure t)
+(add-hook 'html-mode-hook 'visual-line-mode)
+(set-fill-column 120)
 
-(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
+(use-package haskell-mode
+  :ensure t
+  :commands (haskell-mode)
+  :init
+  (add-hook 'haskell-mode-hook #'intero-mode)
+  (add-hook 'haskell-mode-hook #'subword-mode)
+  (setq haskell-stylish-on-save t))
 
-(use-package markdown-mode
-  :ensure t)
+(use-package intero
+  :ensure t
+  :commands (intero-mode)
+  :diminish (intero-mode . "I"))
 
-(add-hook 'markdown-mode-hook 'pandoc-mode)
-(add-hook 'markdown-mode-hook
-          '(lambda ()
-             (progn
-               (adaptive-wrap-prefix-mode 1)
-               (visual-line-mode 1))))
+(use-package popwin
+  :defer t
+  :config
+  (push 'haskell-interactive-mode popwin:special-display-config)
+  (push 'intero-rep-mode popwin:special-display-config))
 
-(use-package exec-path-from-shell
-  :ensure t)
+;; (use-package scala-mode
+;;   :ensure t)
 
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "GOPATH"))
+;; (use-package sbt-mode
+;;   :ensure t)
 
-(use-package go-mode
-  :ensure t)
+;; (use-package ensime
+;;   :ensure t
+;;   :pin melpa-stable)
 
-(add-hook 'before-save-hook 'gofmt-before-save)
+;; (use-package polymode
+;;   :ensure t)
 
-(use-package go-autocomplete
-  :ensure t)
+;; (use-package ace-jump-mode
+;;   :ensure t)
+;; (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
-(require 'go-autocomplete)
-(require 'auto-complete-config)
-(ac-config-default)
+;; (eval-after-load "ace-jump-mode"
+;;   '(ace-jump-mode-enable-mark-sync))
+;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-(use-package go-eldoc
-  :ensure t)
+;; (use-package sublimity
+;;   :ensure sublimity)
 
-(add-hook 'go-mode-hook 'go-eldoc-setup)
+;; (require 'sublimity)
+;; (require 'sublimity-scroll)
 
-(use-package powershell
-  :ensure t)
-
-(setq powershell-indent 2)
-
-(use-package polymode
-  :ensure t)
-
-(use-package ace-jump-mode
-  :ensure t)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
-(eval-after-load "ace-jump-mode"
-  '(ace-jump-mode-enable-mark-sync))
-(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
-
-(use-package csharp-mode
-  :ensure t)
-
-(use-package sublimity
-  :ensure sublimity)
-
-(require 'sublimity)
-(require 'sublimity-scroll)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; rebind how page-up and page-down work
 (defun sfp-page-down ()
@@ -249,13 +199,3 @@
 
 (global-set-key [home] 'beginning-of-line)
 (global-set-key [end] 'end-of-line)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t)
- '(markdown-command
-   (if (eq system-type 'windows-nt)
-       (progn "pandoc -c %HOME%/.github-markdown.css -s -t html5")
-     (progn "pandoc -c ~/.github-markdown.css -s -t html5"))))
